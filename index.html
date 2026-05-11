@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Before Lynch — A Reader's Prep for One Up On Wall Street</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:        #f4ede0;
+    --paper-deep:   #ebe1ce;
+    --ink:          #15233a;
+    --ink-soft:     #2a3a55;
+    --ink-faint:    #5a6982;
+    --rule:         #c9bda4;
+    --accent:       #c64a1f;
+    --accent-deep:  #9a3614;
+    --gold:         #b88536;
+    --green:        #4a6b3a;
+    --red:          #b13a26;
+    --shadow: 0 1px 0 rgba(21,35,58,0.04), 0 12px 32px -12px rgba(21,35,58,0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter Tight', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(198,74,31,0.04) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(21,35,58,0.04) 0%, transparent 40%);
+  }
+
+  /* paper grain */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    z-index: 1;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' /><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.13  0 0 0 0 0.22  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* ===== TICKER BAR ===== */
+  .ticker {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 10px 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid #2a3a55;
+  }
+  .ticker-track {
+    display: flex;
+    gap: 48px;
+    white-space: nowrap;
+    animation: scroll 60s linear infinite;
+    width: max-content;
+  }
+  .ticker-item { display: inline-flex; align-items: center; gap: 10px; }
+  .ticker-up    { color: #7fb069; }
+  .ticker-down  { color: #d97757; }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ===== NAV ===== */
+  nav.top {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(244,237,224,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+    padding: 18px 0;
+  }
+  nav.top .wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .brand {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .brand .dot { color: var(--accent); }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .nav-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a.active { color: var(--accent); }
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -6px; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+  }
+  .progress-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 6px 12px;
+    border-radius: 999px;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 32px 60px;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 60px;
+    align-items: end;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+  h1.display {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    font-variation-settings: 'opsz' 144;
+  }
+  h1.display em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+  .hero-meta {
+    border-top: 1px solid var(--rule);
+    padding-top: 24px;
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+  .hero-meta strong {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .hero-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+  }
+
+  /* drop cap intro */
+  .lede {
+    margin-top: 48px;
+    max-width: 720px;
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    border-left: 3px solid var(--accent);
+    padding-left: 24px;
+  }
+
+  /* ===== SECTION ===== */
+  section.module {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 32px;
+    position: relative;
+    z-index: 2;
+  }
+  .section-head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 40px;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--rule);
+    align-items: end;
+  }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+  }
+  .section-num span {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-size: 64px;
+    color: var(--ink);
+    line-height: 1;
+    margin-top: 8px;
+    font-weight: 600;
+  }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--ink);
+  }
+  h2 em { font-style: italic; color: var(--accent); }
+
+  /* ===== TERMS GRID ===== */
+  .terms {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+  }
+  .term {
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 32px;
+    background: var(--paper);
+    transition: background 0.3s, transform 0.3s;
+    cursor: pointer;
+    position: relative;
+  }
+  .term:hover {
+    background: var(--paper-deep);
+  }
+  .term-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 16px;
+  }
+  .term-name {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .term-symbol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    background: rgba(198,74,31,0.08);
+    padding: 4px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.1em;
+  }
+  .term-def {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+  .term-formula {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink);
+    background: var(--paper-deep);
+    padding: 10px 14px;
+    border-left: 2px solid var(--accent);
+    margin-top: 12px;
+    overflow-x: auto;
+  }
+  .term-example {
+    font-size: 13px;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--rule);
+  }
+  .term-check {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    cursor: pointer;
+    user-select: none;
+  }
+  .term-check input {
+    accent-color: var(--accent);
+    width: 14px;
+    height: 14px;
+  }
+  .term.done {
+    background: rgba(74,107,58,0.06);
+  }
+  .term.done .term-name {
+    color: var(--ink-faint);
+  }
+
+  /* ===== CALCULATOR ===== */
+  .calculator {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 48px;
+    margin-top: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .calculator::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(198,74,31,0.3) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .calc-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .calc-title {
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    margin-bottom: 32px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.2fr;
+    gap: 24px;
+    align-items: end;
+  }
+  .calc-field label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: rgba(244,237,224,0.6);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .calc-field input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(244,237,224,0.3);
+    color: var(--paper);
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    padding: 8px 0;
+    transition: border-color 0.2s;
+    -moz-appearance: textfield;
+  }
+  .calc-field input::-webkit-outer-spin-button,
+  .calc-field input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .calc-field input:focus {
+    outline: none;
+    border-bottom-color: var(--accent);
+  }
+  .calc-field .prefix {
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    color: rgba(244,237,224,0.4);
+    margin-right: 8px;
+  }
+  .calc-input-row {
+    display: flex;
+    align-items: baseline;
+  }
+  .calc-result {
+    background: var(--accent);
+    padding: 24px;
+    color: var(--paper);
+    position: relative;
+  }
+  .calc-result-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+    opacity: 0.85;
+  }
+  .calc-result-value {
+    font-family: 'Fraunces', serif;
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .calc-result-context {
+    font-size: 13px;
+    margin-top: 12px;
+    line-height: 1.4;
+    opacity: 0.92;
+  }
+
+  /* ===== LESSONS ===== */
+  .lessons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    border-left: 1px solid var(--rule);
+  }
+  .lesson {
+    border-right: 1px solid var(--rule);
+    padding: 40px 32px;
+    transition: background 0.3s;
+  }
+  .lesson:hover { background: var(--paper-deep); }
+  .lesson-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .lesson h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  .lesson p {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+  .lesson p + p { margin-top: 12px; }
+
+  /* ===== QUIZ ===== */
+  .quiz {
+    background: var(--paper-deep);
+    padding: 48px;
+    border: 1px solid var(--rule);
+  }
+  .quiz-q {
+    margin-bottom: 32px;
+  }
+  .quiz-q:last-child { margin-bottom: 0; }
+  .quiz-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .quiz-question {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+  .quiz-options {
+    display: grid;
+    gap: 8px;
+  }
+  .quiz-option {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 14px 18px;
+    cursor: pointer;
+    font-size: 15px;
+    color: var(--ink);
+    transition: all 0.2s;
+    text-align: left;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .quiz-option:hover {
+    border-color: var(--accent);
+  }
+  .quiz-option.correct {
+    background: rgba(74,107,58,0.1);
+    border-color: var(--green);
+    color: var(--green);
+  }
+  .quiz-option.wrong {
+    background: rgba(177,58,38,0.08);
+    border-color: var(--red);
+    color: var(--red);
+  }
+  .quiz-option .marker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+  }
+  .quiz-option.correct .marker,
+  .quiz-option.wrong .marker { color: inherit; }
+  .quiz-feedback {
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    font-style: italic;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+
+  /* ===== READING LIST ===== */
+  .reading {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .resource {
+    border: 1px solid var(--rule);
+    padding: 32px;
+    background: var(--paper);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .resource:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+  }
+  .resource-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    padding: 4px 8px;
+    background: var(--ink);
+    color: var(--paper);
+    margin-bottom: 16px;
+  }
+  .resource-tag.free { background: var(--green); }
+  .resource-tag.book { background: var(--gold); }
+  .resource h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+  .resource .author {
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  .resource p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .resource a {
+    display: inline-block;
+    margin-top: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 2px;
+  }
+  .resource a:hover { color: var(--accent-deep); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 80px 32px 40px;
+    margin-top: 80px;
+    position: relative;
+    z-index: 2;
+  }
+  .foot-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .foot-headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    max-width: 900px;
+    margin-bottom: 60px;
+  }
+  .foot-headline em { color: var(--accent); font-style: italic; }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(244,237,224,0.15);
+  }
+  .foot-grid h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: rgba(244,237,224,0.5);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .foot-grid p, .foot-grid a {
+    color: var(--paper);
+    font-size: 14px;
+    line-height: 1.7;
+    text-decoration: none;
+    display: block;
+  }
+  .foot-grid a:hover { color: var(--accent); }
+  .foot-base {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(244,237,224,0.15);
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: rgba(244,237,224,0.5);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .hero-grid, .lessons, .terms, .reading, .calc-grid, .foot-grid {
+      grid-template-columns: 1fr;
+    }
+    .section-head { grid-template-columns: 1fr; gap: 16px; }
+    .nav-links { display: none; }
+    .calc-result { margin-top: 16px; }
+  }
+
+  /* fade in on scroll */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.8s, transform 0.8s; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="ticker">
+    <!-- populated by JS -->
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="top">
+  <div class="wrap">
+    <div class="brand">Before Lynch<span class="dot">.</span></div>
+    <ul class="nav-links">
+      <li><a href="#vocab">Vocabulary</a></li>
+      <li><a href="#calc">Calculator</a></li>
+      <li><a href="#lessons">Lessons</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+      <li><a href="#further">Further Reading</a></li>
+    </ul>
+    <div class="progress-pill" id="progress">0 / 8 LEARNED</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">A reader's prep · Volume One</div>
+      <h1 class="display">Everything you need <em>before</em> you open Peter Lynch.</h1>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-grid">
+        <div>
+          <strong>Reading time</strong>
+          ~45 minutes,<br/>start to finish.
+        </div>
+        <div>
+          <strong>Prerequisites</strong>
+          None. Truly.<br/>Just curiosity.
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="lede">
+    Lynch wrote <em>One Up On Wall Street</em> for ordinary people — but he assumes you know the vocabulary the financial press takes for granted. Eight terms. One formula that matters. A handful of mental models. That's the whole gap. Close it here, then go read the book the way Lynch intended.
+  </p>
+</header>
+
+<!-- VOCABULARY -->
+<section class="module" id="vocab">
+  <div class="section-head">
+    <div class="section-num">CHAPTER<span>01</span></div>
+    <div>
+      <h2>The eight words that <em>unlock</em> the book.</h2>
+    </div>
+  </div>
+
+  <div class="terms" id="termGrid">
+    <!-- populated by JS -->
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="module" id="calc">
+  <div class="section-head">
+    <div class="section-num">CHAPTER<span>02</span></div>
+    <div>
+      <h2>Try the one formula <em>everyone</em> uses.</h2>
+    </div>
+  </div>
+
+  <div class="calculator">
+    <div class="calc-header">P/E RATIO · INTERACTIVE CALCULATOR</div>
+    <div class="calc-title">How much are you paying per dollar of profit?</div>
+    <div class="calc-grid">
+      <div class="calc-field">
+        <label>Share Price</label>
+        <div class="calc-input-row">
+          <span class="prefix">$</span>
+          <input type="number" id="price" value="150" step="1" min="0" />
+        </div>
+      </div>
+      <div class="calc-field">
+        <label>Earnings Per Share (EPS)</label>
+        <div class="calc-input-row">
+          <span class="prefix">$</span>
+          <input type="number" id="eps" value="6" step="0.5" min="0" />
+        </div>
+      </div>
+      <div class="calc-result">
+        <div class="calc-result-label">P/E RATIO</div>
+        <div class="calc-result-value" id="peValue">25.0</div>
+        <div class="calc-result-context" id="peContext">Investors are paying $25 for every $1 of annual earnings. Roughly average for the broader market.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LESSONS -->
+<section class="module" id="lessons">
+  <div class="section-head">
+    <div class="section-num">CHAPTER<span>03</span></div>
+    <div>
+      <h2>Three ideas Lynch <em>never</em> stops to explain.</h2>
+    </div>
+  </div>
+
+  <div class="lessons">
+    <div class="lesson">
+      <div class="lesson-num">III · 01</div>
+      <h3>A share is a slice of a real business.</h3>
+      <p>Not a number on a screen. Not a betting chip. When you buy stock in Apple, you own — proportionally — the factories, the cash, the brand, the lawsuits. The price moves because thousands of people are arguing every second about what that slice is worth.</p>
+      <p>Lynch's whole method depends on you remembering this. He buys companies, not tickers.</p>
+    </div>
+    <div class="lesson">
+      <div class="lesson-num">III · 02</div>
+      <h3>Earnings drive everything, eventually.</h3>
+      <p>In the short run, a stock can do anything — fashion, panic, hype, a tweet. In the long run, the only thing that pulls the price is whether the company is making more money than it used to.</p>
+      <p>That's why Lynch obsesses over earnings growth. A company doubling its profits will, over years, drag its share price up behind it. A company with shrinking profits will, over years, drag its share price down. Patience is the trick.</p>
+    </div>
+    <div class="lesson">
+      <div class="lesson-num">III · 03</div>
+      <h3>The market is not one thing.</h3>
+      <p>"The stock market went up today" is meaningless on its own. There are tiny growth companies, sleepy giants, cyclicals tied to the economy, turnarounds, and outright disasters — and they all behave differently. Lynch sorts every company he sees into six categories.</p>
+      <p>You don't need to memorize them yet. Just know: when Lynch says <em>slow grower</em> or <em>stalwart</em> or <em>cyclical</em>, he means specific, distinct things. The book will teach you those distinctions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="module" id="quiz">
+  <div class="section-head">
+    <div class="section-num">CHAPTER<span>04</span></div>
+    <div>
+      <h2>Are you <em>ready</em>? A five-question check.</h2>
+    </div>
+  </div>
+
+  <div class="quiz" id="quizContainer">
+    <!-- populated by JS -->
+  </div>
+</section>
+
+<!-- READING -->
+<section class="module" id="further">
+  <div class="section-head">
+    <div class="section-num">CHAPTER<span>05</span></div>
+    <div>
+      <h2>If you want to go <em>deeper</em>.</h2>
+    </div>
+  </div>
+
+  <div class="reading">
+    <div class="resource">
+      <span class="resource-tag free">FREE · WEB</span>
+      <h3>Investopedia — Investing Essentials</h3>
+      <p class="author">investopedia.com</p>
+      <p>The single best free resource for learning the vocabulary of finance. Every term has its own page; every page has clear examples. Bookmark it; you'll return for years.</p>
+      <a href="https://www.investopedia.com/investing-essentials-4689754" target="_blank" rel="noopener">visit investopedia.com →</a>
+    </div>
+    <div class="resource">
+      <span class="resource-tag free">FREE · WEB</span>
+      <h3>Britannica Money — Stock Basics</h3>
+      <p class="author">britannica.com/money</p>
+      <p>Cleaner and gentler than Investopedia. If financial jargon makes your eyes glaze over, start here instead. One sitting and you'll know enough to begin Lynch.</p>
+      <a href="https://www.britannica.com/money/stock-market-basics" target="_blank" rel="noopener">visit britannica.com →</a>
+    </div>
+    <div class="resource">
+      <span class="resource-tag book">BOOK · NEXT</span>
+      <h3>One Up On Wall Street</h3>
+      <p class="author">Peter Lynch · 1989</p>
+      <p>The destination. Lynch's argument that ordinary observation — what you see in the mall, at work, at the kitchen table — beats most professional analysis. Once you've worked through this site, open the book.</p>
+      <a>your next read</a>
+    </div>
+    <div class="resource">
+      <span class="resource-tag book">BOOK · LATER</span>
+      <h3>The Little Book of Common Sense Investing</h3>
+      <p class="author">John C. Bogle · 2007</p>
+      <p>The counter-argument. After Lynch convinces you to pick stocks, Bogle will quietly point out that index funds usually win. Reading both is how you stay honest.</p>
+      <a>after Lynch</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-wrap">
+    <div class="foot-headline">
+      You don't need a degree. You need <em>eight words</em>, one formula, and the patience to read carefully.
+    </div>
+    <div class="foot-grid">
+      <div>
+        <h4>About this site</h4>
+        <p>A focused primer for readers approaching Peter Lynch's <em>One Up On Wall Street</em> without a finance background. No paywalls. No newsletters. No affiliate links. Just the prerequisites, distilled.</p>
+      </div>
+      <div>
+        <h4>Disclaimer</h4>
+        <p>Educational content only. Nothing here is financial advice. Stock examples are illustrative. Past performance does not predict future results.</p>
+      </div>
+      <div>
+        <h4>Sections</h4>
+        <a href="#vocab">Vocabulary</a>
+        <a href="#calc">Calculator</a>
+        <a href="#lessons">Lessons</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#further">Further Reading</a>
+      </div>
+    </div>
+    <div class="foot-base">
+      <div>BEFORE LYNCH · A READER'S PREP</div>
+      <div>SET IN FRAUNCES &amp; INTER TIGHT</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ============== TICKER ============== */
+  const tickerData = [
+    {sym:'AAPL', price:'212.34', chg:'+1.42', up:true},
+    {sym:'MSFT', price:'418.91', chg:'+2.18', up:true},
+    {sym:'GOOGL', price:'178.05', chg:'-0.74', up:false},
+    {sym:'AMZN', price:'185.12', chg:'+0.93', up:true},
+    {sym:'TSLA', price:'242.66', chg:'-3.21', up:false},
+    {sym:'NVDA', price:'128.45', chg:'+4.05', up:true},
+    {sym:'JPM',  price:'215.78', chg:'+0.31', up:true},
+    {sym:'WMT',  price:'82.14',  chg:'-0.18', up:false},
+    {sym:'KO',   price:'68.92',  chg:'+0.22', up:true},
+    {sym:'XOM',  price:'114.53', chg:'-1.04', up:false},
+    {sym:'BRK.B',price:'472.10', chg:'+1.80', up:true},
+    {sym:'V',    price:'298.41', chg:'+0.65', up:true},
+  ];
+  function buildTicker() {
+    const track = document.getElementById('ticker');
+    const items = [...tickerData, ...tickerData].map(t => {
+      const cls = t.up ? 'ticker-up' : 'ticker-down';
+      const arrow = t.up ? '▲' : '▼';
+      return `<span class="ticker-item"><strong>${t.sym}</strong> $${t.price} <span class="${cls}">${arrow} ${t.chg}</span></span>`;
+    }).join('');
+    track.innerHTML = items;
+  }
+  buildTicker();
+
+  /* ============== TERMS ============== */
+  const terms = [
+    {
+      id: 'share',
+      name: 'Share / Stock',
+      symbol: 'EQUITY',
+      def: 'A unit of ownership in a company. Buy one share of Apple and you legally own a tiny — and we mean tiny — piece of every iPhone, every dollar in their bank account, and every coffee cup in their cafeteria.',
+      example: 'Apple has roughly 15 billion shares outstanding. One share buys you about 0.0000000067% of the company.'
+    },
+    {
+      id: 'eps',
+      name: 'Earnings Per Share',
+      symbol: 'EPS',
+      def: 'Annual profit divided by the number of shares. The single most-watched number on Wall Street, because it tells you what each share "earned" for its owner this year.',
+      formula: 'EPS = Net Income ÷ Shares Outstanding',
+      example: 'A company earning $1B with 100M shares has an EPS of $10.'
+    },
+    {
+      id: 'pe',
+      name: 'P/E Ratio',
+      symbol: 'P/E',
+      def: 'How many years of earnings you are paying for, at the current price. The most quoted valuation number in finance — and the one Lynch returns to constantly.',
+      formula: 'P/E = Share Price ÷ EPS',
+      example: 'A stock at $50 with $5 EPS has a P/E of 10. You\'re paying ten years of profits for one share.'
+    },
+    {
+      id: 'mcap',
+      name: 'Market Capitalization',
+      symbol: 'MCAP',
+      def: 'The total dollar value of a company, calculated by multiplying every share by the current price. The honest answer to "how big is this company?"',
+      formula: 'Market Cap = Share Price × Total Shares',
+      example: 'A $50 stock with 100M shares = $5 billion market cap. Mid-sized.'
+    },
+    {
+      id: 'div',
+      name: 'Dividend & Yield',
+      symbol: 'DIV',
+      def: 'A cash payment a profitable company sends to shareholders, usually quarterly. The yield is that payment expressed as a percentage of the share price — your "interest rate" for owning the stock.',
+      formula: 'Yield = Annual Dividend ÷ Share Price',
+      example: 'A $100 stock paying $3/year in dividends yields 3%.'
+    },
+    {
+      id: 'rev',
+      name: 'Revenue vs. Earnings',
+      symbol: 'P&L',
+      def: 'Revenue is the money coming in the door. Earnings (or profit) is what survives after every expense. A company can have soaring revenue and zero earnings — many tech startups did exactly this.',
+      example: 'Amazon had massive revenue for years before it had meaningful earnings.'
+    },
+    {
+      id: 'book',
+      name: 'Book Value',
+      symbol: 'BV',
+      def: 'What the company would theoretically be worth if you sold every asset, paid every debt, and split the rest. Almost never matches the market price — the gap reveals what investors think of the future.',
+      formula: 'Book Value = Total Assets − Total Liabilities',
+      example: 'Tech firms often trade far above book; struggling industrials can trade below it.'
+    },
+    {
+      id: 'bullbear',
+      name: 'Bull vs. Bear Market',
+      symbol: 'CYCLE',
+      def: 'A bull market is a sustained rise (typically 20%+ from recent lows). A bear market is a sustained fall (20%+ from recent highs). Lynch lived through both and explicitly tells you not to time them.',
+      example: 'The 2009–2020 bull market lasted about eleven years.'
+    }
+  ];
+
+  function buildTerms() {
+    const grid = document.getElementById('termGrid');
+    grid.innerHTML = terms.map(t => `
+      <div class="term" data-id="${t.id}">
+        <div class="term-header">
+          <div class="term-name">${t.name}</div>
+          <div class="term-symbol">${t.symbol}</div>
+        </div>
+        <div class="term-def">${t.def}</div>
+        ${t.formula ? `<div class="term-formula">${t.formula}</div>` : ''}
+        ${t.example ? `<div class="term-example">${t.example}</div>` : ''}
+        <label class="term-check">
+          <input type="checkbox" data-id="${t.id}" />
+          MARK AS LEARNED
+        </label>
+      </div>
+    `).join('');
+
+    // wire up checkboxes (in-memory only)
+    const learned = new Set();
+    grid.querySelectorAll('input[type=checkbox]').forEach(cb => {
+      cb.addEventListener('change', e => {
+        const card = e.target.closest('.term');
+        if (e.target.checked) {
+          learned.add(e.target.dataset.id);
+          card.classList.add('done');
+        } else {
+          learned.delete(e.target.dataset.id);
+          card.classList.remove('done');
+        }
+        document.getElementById('progress').textContent =
+          `${learned.size} / ${terms.length} LEARNED`;
+      });
+    });
+  }
+  buildTerms();
+
+  /* ============== P/E CALCULATOR ============== */
+  function updatePE() {
+    const price = parseFloat(document.getElementById('price').value) || 0;
+    const eps = parseFloat(document.getElementById('eps').value) || 0;
+    const pe = eps > 0 ? price / eps : 0;
+    const peEl = document.getElementById('peValue');
+    const ctx = document.getElementById('peContext');
+
+    if (eps <= 0) {
+      peEl.textContent = '—';
+      ctx.textContent = 'A company with no earnings has no P/E. Common for early-stage growth companies (Amazon in 1997, for example).';
+      return;
+    }
+
+    peEl.textContent = pe.toFixed(1);
+
+    let text = `Investors are paying $${pe.toFixed(2)} for every $1 of annual earnings. `;
+    if (pe < 10) text += 'Quite low — could signal a value opportunity, or a struggling business. Investigate why.';
+    else if (pe < 18) text += 'Below the long-term market average (around 15–20). Often where Lynch hunts.';
+    else if (pe < 30) text += 'Roughly average to slightly elevated — typical for healthy, growing companies.';
+    else if (pe < 60) text += 'High. Justified only if earnings are growing rapidly. Watch for the PEG ratio next.';
+    else text += 'Very high. Either explosive growth is expected, or sentiment has gotten ahead of fundamentals.';
+    ctx.textContent = text;
+  }
+  document.getElementById('price').addEventListener('input', updatePE);
+  document.getElementById('eps').addEventListener('input', updatePE);
+  updatePE();
+
+  /* ============== QUIZ ============== */
+  const quiz = [
+    {
+      q: 'A stock trades at $80 with EPS of $4. What is its P/E ratio?',
+      opts: ['5', '20', '32', 'Cannot calculate'],
+      ans: 1,
+      why: 'P/E = Price ÷ EPS = 80 ÷ 4 = 20. Investors are paying twenty years of current earnings.'
+    },
+    {
+      q: 'Owning a share of stock means…',
+      opts: [
+        'You\'ve made a bet on the company\'s ticker symbol',
+        'You\'re lending money to the company',
+        'You own a proportional slice of the actual business',
+        'You\'re entitled to a fixed annual return'
+      ],
+      ans: 2,
+      why: 'A share is partial ownership — assets, liabilities, future profits, voting rights. Lynch\'s whole method rests on this.'
+    },
+    {
+      q: 'Which is harder for a company to manipulate?',
+      opts: ['Earnings', 'Revenue', 'P/E ratio', 'Stock price'],
+      ans: 1,
+      why: 'Revenue is sales coming in. Earnings can be massaged through accounting choices. That\'s why some investors prefer P/S over P/E.'
+    },
+    {
+      q: 'A company has 200M shares at $50 each. Its market cap is…',
+      opts: ['$50 million', '$250 million', '$10 billion', '$100 billion'],
+      ans: 2,
+      why: 'Market cap = price × shares = $50 × 200M = $10 billion. A solid mid-cap.'
+    },
+    {
+      q: 'Lynch argues that, in the long run, what drives stock prices?',
+      opts: ['News headlines', 'Analyst ratings', 'Earnings growth', 'Interest rates'],
+      ans: 2,
+      why: 'Short-term: noise. Long-term: a company\'s ability to grow profits drags the share price along behind it.'
+    }
+  ];
+
+  function buildQuiz() {
+    const c = document.getElementById('quizContainer');
+    c.innerHTML = quiz.map((q, i) => `
+      <div class="quiz-q">
+        <div class="quiz-num">QUESTION ${String(i+1).padStart(2, '0')}</div>
+        <div class="quiz-question">${q.q}</div>
+        <div class="quiz-options" data-q="${i}">
+          ${q.opts.map((o, j) => `
+            <button class="quiz-option" data-q="${i}" data-i="${j}">
+              <span class="marker">${String.fromCharCode(65+j)}</span>
+              <span>${o}</span>
+            </button>
+          `).join('')}
+        </div>
+        <div class="quiz-feedback" data-q="${i}"></div>
+      </div>
+    `).join('');
+
+    c.querySelectorAll('.quiz-option').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const qIdx = parseInt(btn.dataset.q);
+        const iIdx = parseInt(btn.dataset.i);
+        const q = quiz[qIdx];
+        const group = c.querySelector(`.quiz-options[data-q="${qIdx}"]`);
+        const fb = c.querySelector(`.quiz-feedback[data-q="${qIdx}"]`);
+
+        // disable all, mark correct/wrong
+        group.querySelectorAll('.quiz-option').forEach((b, j) => {
+          b.disabled = true;
+          if (j === q.ans) b.classList.add('correct');
+          else if (j === iIdx) b.classList.add('wrong');
+        });
+
+        fb.textContent = (iIdx === q.ans ? '✓ Correct. ' : '✗ Not quite. ') + q.why;
+        fb.classList.add('show');
+      });
+    });
+  }
+  buildQuiz();
+
+  /* ============== SCROLL REVEAL ============== */
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) en.target.classList.add('in');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.module, .lesson, .term, .resource').forEach(el => {
+    el.classList.add('reveal');
+    obs.observe(el);
+  });
+
+  /* ============== ACTIVE NAV ============== */
+  const sections = document.querySelectorAll('section.module');
+  const links = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      const top = s.offsetTop - 100;
+      if (window.scrollY >= top) current = s.id;
+    });
+    links.forEach(l => {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+
+</body>
+</html>
